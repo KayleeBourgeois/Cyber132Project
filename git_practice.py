@@ -5,7 +5,11 @@ def student1():
 def student2():
     print "WhAT tHe FUcK"
 
+def gitHub():
+    print "LOL git Fucked"
+
     
 student2()
 student1()
+gitHub()
 
