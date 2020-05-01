@@ -200,7 +200,7 @@ class Game(Frame):
         Game.E1.focus()
 
     def createPlayers(self, event):
-        
+
         names = []
         list1 = ""
         ## name 1
@@ -209,69 +209,117 @@ class Game(Frame):
         player1 = Players(names[0], None, None)
         Game.E1.delete(0, END)
         
-        Game.text2.config(state = NORMAL)
-        Game.text2.delete("1.0", END)
-##        Game.text2.insert(END, "Player 1 is " + str(player1.name) + "\n")
-        list1 += "Player 1 is " + str(player1.name) + "\n"
-        Game.text2.insert(END, list1)
-        Game.text2.config(state = DISABLED)
-
-
-        ## name 2
-        name2 = str(Game.E1.get())
-        names.append(name2)
-        player2 = Players(names[1], None, None)
-        Game.E1.delete(0, END)
-
-        Game.text2.config(state = NORMAL)
-        Game.text2.delete("1.0", END)
-##        Game.text2.insert(END, " Player 2 is " + str(player2.name) + "\n")
-        list1 += "Player 2 is " + str(player2.name) + "\n"
-        Game.text2.insert(END, list1)
-        Game.text2.config(state = DISABLED)
-
-        ## name 3
-        name3 = Game.E1.get()
-        player3 = Players(None, None, None)
-        Game.E1.delete(0, END)
-
-        ## name 4
-        name4 = Game.E1.get()
-        player4 = Players(None, None, None)
-        Game.E1.delete(0, END)
+##        Game.text2.config(state = NORMAL)
+##        Game.text2.delete("1.0", END)
+####        Game.text2.insert(END, "Player 1 is " + str(player1.name) + "\n")
+##        list1 += "Player 1 is " + str(player1.name) + "\n"
+##        Game.text2.insert(END, list1)
+##        Game.text2.config(state = DISABLED)
+##
+##
+##        ## name 2
+##        name2 = str(Game.E1.get())
+##        names.append(name2)
+##        player2 = Players(names[1], None, None)
+##        Game.E1.delete(0, END)
+##
+##        Game.text2.config(state = NORMAL)
+##        Game.text2.delete("1.0", END)
+####        Game.text2.insert(END, " Player 2 is " + str(player2.name) + "\n")
+##        list1 += "Player 2 is " + str(player2.name) + "\n"
+##        Game.text2.insert(END, list1)
+##        Game.text2.config(state = DISABLED)
+##
+##        ## name 3
+##        name3 = Game.E1.get()
+##        player3 = Players(None, None, None)
+##        Game.E1.delete(0, END)
+##
+##        ## name 4
+##        name4 = Game.E1.get()
+##        player4 = Players(None, None, None)
+##        Game.E1.delete(0, END)
 
     def turns(self):
+        # set all turns to 0 at beginning of game
         p1turn = 0
         p2turn = 0
         p3turn = 0
         p4turn = 0
-        while ( p1turn == p2turn and p1turn == p3turn and  p1turn == p4turn):
+        # while they are all equal (the beginning of a round), it is player 1's turn
+        while (p1turn == p2turn) and (p1turn == p3turn) and  (p1turn == p4turn): # and (playerl.placement < 82) and (player2.placement < 82) and (p3.placement < 82) and (p4.placement < 82)
+            # for now print the statements
+            # later, delete this and create a process for it to run
             Game.text.config(state = NORMAL)
             Game.text.delete("1.0", END)
             Game.text.insert(END, "Goodjob")
             Game.text.config(state = DISABLED)
+            # once the player reaches placement of 82, they win the game
+            if (player1.placement >= 82):
+                Game.text.config(state = NORMAL)
+                Game.text.delete("1.0", END)
+                Game.text.insert(END, "Congrats player 1! \nYou have won the game! \nPlease exit the window and play again.")
+                Game.text.config(state = DISABLED)
+                break
+            # add one because they completed their turn
             p1turn += 1
-            while ( p1turn > p2turn and p2turn == p3turn and p2turn == p4turn):
+            
+            # while p2 is less than p1 and p2 is equal to p3 and p4, it is player 2's turn
+            while ( p1turn > p2turn and p2turn == p3turn and p2turn == p4turn): # and (pl.placement < 82) and (p2.placement < 82) and (p3.placement < 82) and (p4.placement < 82)
+                # for now print the statements
+                # later, delete this and create a process for it to run
                 Game.text.config(state = NORMAL)
                 Game.text.delete("1.0", END)
                 Game.text.insert(END, "heck yeah")
                 Game.text.config(state = DISABLED)
+                # once the player reaches placement of 82, they win the game
+                if (player2.placement >= 82):
+                    Game.text.config(state = NORMAL)
+                    Game.text.delete("1.0", END)
+                    Game.text.insert(END, "Congrats player 2! \nYou have won the game! \nPlease exit the window and play again.")
+                    Game.text.config(state = DISABLED)
+                    break
+                # add one because they completed their turn
                 p2turn +=1
-                while ( p1turn > p3turn and p2turn > p3turn and p3turn == p4turn):
+                
+                # while p3 is less than p1 and p2 and p3 is equal to p4, it is player 3's turn
+                while ( p1turn > p3turn and p2turn > p3turn and p3turn == p4turn): # and (pl.placement < 82) and (p2.placement < 82) and (p3.placement < 82) and (p4.placement < 82)
+                    # for now print the statements
+                    # later, delete this and create a process for it to run
                     Game.text.config(state = NORMAL)
                     Game.text.delete("1.0", END)
                     Game.text.insert(END, "Tech yeah")
                     Game.text.config(state = DISABLED)
+                    # once the player reaches placement of 82, they win the game
+                    if (player3.placement >= 82):
+                        Game.text.config(state = NORMAL)
+                        Game.text.delete("1.0", END)
+                        Game.text.insert(END, "Congrats player 3! \nYou have won the game! \nPlease exit the window and play again.")
+                        Game.text.config(state = DISABLED)
+                        break
+                    # add one because they completed their turn
                     p3turn +=1
-                    while (p1turn > p4turn and p2turn > p4turn and p3turn > p4turn) and p1turn != 3:
+                    
+                    #while p1 and p2 and p3 are all greater than p4 (final turn of the round), it is player 4's turn
+                    # for now, p1 != 3 is set because we do not have positions set for players, this stops the endless loop
+                    while (p1turn > p4turn and p2turn > p4turn and p3turn > p4turn) and p1turn != 3: # and (pl.placement < 82) and (p2.placement < 82) and (p3.placement < 82) and (p4.placement < 82)
+                        # for now print the statements
+                        # later, delete this and create a process for it to run
                         Game.text.config(state = NORMAL)
                         Game.text.delete("1.0", END)
                         Game.text.insert(END, "You did it")
                         Game.text.config(state = DISABLED)
+                        # once the player reaches placement of 82, they win the game
+                        if (player4.placement >= 82):
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Congrats player 4! \nYou have won the game! \nPlease exit the window and play again.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # add one because they completed their turn
                         p4turn +=1
-                        
-            
 
+                        
     def play(self):
         self.turns()
 
