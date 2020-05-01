@@ -201,31 +201,34 @@ class Game(Frame):
 
     def createPlayers(self, event):
         
-        names = ""
+        names = []
+        list1 = ""
         ## name 1
-        name1 = Game.E1.get()
-        player1 = Players(name1, None, None)
+        name1 = str(Game.E1.get())
+        names.append(name1)
+        player1 = Players(names[0], None, None)
         Game.E1.delete(0, END)
         
         Game.text2.config(state = NORMAL)
         Game.text2.delete("1.0", END)
-##        Game.text2.insert(END, " Player 1 is " + str(player1.name) + "\n")
-        names += "Player 1 is " + str(player1.name) + "\n"
-        Game.text2.insert(END, str(names))
+##        Game.text2.insert(END, "Player 1 is " + str(player1.name) + "\n")
+        list1 += "Player 1 is " + str(player1.name) + "\n"
+        Game.text2.insert(END, list1)
         Game.text2.config(state = DISABLED)
 
-        if name1 == "yes":
-            ## name 2
-            name2 = Game.E1.get()
-            player2 = Players(name2, None, None)
-            Game.E1.delete(0, END)
 
-            Game.text2.config(state = NORMAL)
-            Game.text2.delete("1.0", END)
+        ## name 2
+        name2 = str(Game.E1.get())
+        names.append(name2)
+        player2 = Players(names[1], None, None)
+        Game.E1.delete(0, END)
+
+        Game.text2.config(state = NORMAL)
+        Game.text2.delete("1.0", END)
 ##        Game.text2.insert(END, " Player 2 is " + str(player2.name) + "\n")
-            names += "Player 2 is " + str(player2.name) + "\n"
-            Game.text2.insert(END, str(names))
-            Game.text2.config(state = DISABLED)
+        list1 += "Player 2 is " + str(player2.name) + "\n"
+        Game.text2.insert(END, list1)
+        Game.text2.config(state = DISABLED)
 
         ## name 3
         name3 = Game.E1.get()
@@ -236,6 +239,41 @@ class Game(Frame):
         name4 = Game.E1.get()
         player4 = Players(None, None, None)
         Game.E1.delete(0, END)
+
+    def turns(self):
+        p1turn = 0
+        p2turn = 0
+        p3turn = 0
+        p4turn = 0
+        while ( p1turn == p2turn and p1turn == p3turn and  p1turn == p4turn):
+            Game.text.config(state = NORMAL)
+            Game.text.delete("1.0", END)
+            Game.text.insert(END, "Goodjob")
+            Game.text.config(state = DISABLED)
+            p1turn += 1
+            while ( p1turn > p2turn and p2turn == p3turn and p2turn == p4turn):
+                Game.text.config(state = NORMAL)
+                Game.text.delete("1.0", END)
+                Game.text.insert(END, "heck yeah")
+                Game.text.config(state = DISABLED)
+                p2turn +=1
+                while ( p1turn > p3turn and p2turn > p3turn and p3turn == p4turn):
+                    Game.text.config(state = NORMAL)
+                    Game.text.delete("1.0", END)
+                    Game.text.insert(END, "Tech yeah")
+                    Game.text.config(state = DISABLED)
+                    p3turn +=1
+                    while (p1turn > p4turn and p2turn > p4turn and p3turn > p4turn) and p1turn != 3:
+                        Game.text.config(state = NORMAL)
+                        Game.text.delete("1.0", END)
+                        Game.text.insert(END, "You did it")
+                        Game.text.config(state = DISABLED)
+                        p4turn +=1
+                        
+            
+
+    def play(self):
+        self.turns()
 
 
 WIDTH = 1400
@@ -248,6 +286,7 @@ window.configure(bg = "white")
 window.title("Monopoly Game")
 t = Game(window)
 t.setupGUI()
+t.play()
 
 # wait for the window to close
 window.mainloop()
