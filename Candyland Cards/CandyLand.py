@@ -171,6 +171,7 @@ class Game(Frame):
         b1.pack_propagate(False)
 
         # set up dice roll number
+        img = PhotoImage(file = "start.gif")
         L4 = Label(self.master, image = img)
         L4.place( height = 700/4, width = 700/2 , x = 700, y = 50)
         L4.pack_propagate(False)
