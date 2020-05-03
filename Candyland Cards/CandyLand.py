@@ -1,5 +1,7 @@
 from Tkinter import *
 from random import randint
+from GetNames import *
+from GetNames import list_of_names
 
 # Classes to create the board places
 class Board(object):
@@ -182,7 +184,8 @@ class Game(Frame):
         Game.text.pack_propagate(False)
 
         # set up other players info
-        Game.text2 = Text(bg = "white", state = DISABLED, borderwidth = 3, relief = "solid")
+        Game.text2 = Text(bg = "white", state = DISABLED, borderwidth = 3, relief = "solid",\
+                          Text = "Player 1 is " + str(GetNames.Game.names[0])+ "\n")
         Game.text2.place( height = 700/2, width = 700/2, x = 700 + 700/2, y = 525/2 + 50)
         Game.text2.pack_propagate(False)
 
@@ -200,46 +203,48 @@ class Game(Frame):
         Game.E1.place( height = 20, width = 700, x = 700, y = 675)
         Game.E1.focus()
 
-    def createPlayers(self, event):
-
-        names = []
-        list1 = ""
-        ## name 1
-        name1 = str(Game.E1.get())
-        names.append(name1)
-        player1 = Players(names[0], None, None)
-        Game.E1.delete(0, END)
-        
-        Game.text2.config(state = NORMAL)
-        Game.text2.delete("1.0", END)
-##        Game.text2.insert(END, "Player 1 is " + str(player1.name) + "\n")
-        list1 += "Player 1 is " + str(player1.name) + "\n"
-        Game.text2.insert(END, list1)
-        Game.text2.config(state = DISABLED)
-
-
-        ## name 2
-        name2 = str(Game.E1.get())
-        names.append(name2)
-        player2 = Players(names[1], None, None)
-        Game.E1.delete(0, END)
-
-        Game.text2.config(state = NORMAL)
-        Game.text2.delete("1.0", END)
-##        Game.text2.insert(END, " Player 2 is " + str(player2.name) + "\n")
-        list1 += "Player 2 is " + str(player2.name) + "\n"
-        Game.text2.insert(END, list1)
-        Game.text2.config(state = DISABLED)
-
-        ## name 3
-        name3 = Game.E1.get()
-        player3 = Players(None, None, None)
-        Game.E1.delete(0, END)
-
-        ## name 4
-        name4 = Game.E1.get()
-        player4 = Players(None, None, None)
-        Game.E1.delete(0, END)
+##    def createPlayers(self, event):
+##
+##
+##
+##        names = []
+##        textbox = ""
+##        ## name 1
+##        name1 = Game.E1.get()
+##        names.append(name1)
+##        player1 = Players(names[0], None, None)
+##        Game.E1.delete(0, END)
+##        
+##        Game.text2.config(state = NORMAL)
+##        Game.text2.delete("1.0", END)
+####        Game.text2.insert(END, "Player 1 is " + str(player1.name) + "\n")
+##        textbox += "Player 1 is " + names[0] + "\n"
+##        Game.text2.insert(END, textbox)
+##        Game.text2.config(state = DISABLED)
+##
+##
+##        ## name 2
+##        name2 = Game.E1.get()
+##        names.append(name2)
+##        player2 = Players(names[1], None, None)
+##        Game.E1.delete(0, END)
+##
+##        Game.text2.config(state = NORMAL)
+##        Game.text2.delete("1.0", END)
+####        Game.text2.insert(END, " Player 2 is " + str(player2.name) + "\n")
+##        textbox += "Player 2 is " + names[1] + "\n"
+##        Game.text2.insert(END, textbox)
+##        Game.text2.config(state = DISABLED)
+##
+##        ## name 3
+##        name3 = Game.E1.get()
+##        player3 = Players(None, None, None)
+##        Game.E1.delete(0, END)
+##
+##        ## name 4
+##        name4 = Game.E1.get()
+##        player4 = Players(None, None, None)
+##        Game.E1.delete(0, END)
 
     def turns(self):
         # set all turns to 0 at beginning of game
