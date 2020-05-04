@@ -1,7 +1,6 @@
 from Tkinter import *
 from random import randint
 from GetNames import *
-##from GetNames import Game1.names
 
 # Classes to create the board places
 class Board(object):
