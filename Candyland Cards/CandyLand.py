@@ -168,6 +168,20 @@ class Game(Frame):
             img = PhotoImage(file = "{}.gif".format(color))
             L4.configure(image = img)
             L4.image = img
+            global colorClick
+            if (color == "Sred" or color == "Dred"):
+                colorClick = "red"
+            if (color == "Spurple" or color == "Dpurple"):
+                colorClick = "purple"
+            if (color == "Syellow" or color == "Dyellow"):
+                colorClick = "yellow"
+            if (color == "Sblue" or color == "Dblue"):
+                colorClick = "blue"
+            if (color == "Sorange" or color == "Dorange"):
+                colorClick = "orange"
+            if (color == "Sgreen" or color == "Dgreen"):
+                colorClick = "green"
+            
 
             # set all turns to 0 at beginning of game
             p1turn = 0
@@ -186,11 +200,13 @@ class Game(Frame):
                 for placement in Game.BoardListPlacement:
                     Game.player1.placement +=1
                     if (placement == Game.player1.placement):
-                        if (colorClick == P(str(placement)).color):
+#                        Game.work = int('P' + str(int(placement)))
+                        if (colorClick == ('P' + str(int(placement))).color):
                             Game.text.config(state = NORMAL)
                             Game.text.delete("1.0", END)
                             Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ". Player 1 turn over")
                             Game.text.config(state = DISABLED)
+                            break
                         else:
                             pass
                     else:
