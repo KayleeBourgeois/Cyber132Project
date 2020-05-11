@@ -78,7 +78,7 @@ class Game(Frame):
         P6 = Board("green", 6, None)
         P7 = Board("red", 7, None)
         P8 = Board("purple", 8, None)
-        P9 = Board("pink", 9, None)
+        P9 = Board("pink", 9, "berry")
         P10 = Board("yellow", 10, None)
         P11 = Board("blue",11, None)
         P12 = Board("orange", 12, None)
@@ -87,7 +87,7 @@ class Game(Frame):
         P15 = Board("purple", 15, None)
         P16 = Board("yellow", 16, None)
         P17 = Board("blue",17, None)
-        P18 = Board("pink", 18, "peppermint")
+        P18 = Board("pink", 18, "candycane")
         P19 = Board("orange", 19, None)
         P20 = Board("green", 20, None)
         P21 = Board("red", 21, None)
@@ -243,7 +243,7 @@ class Game(Frame):
     def setupGUI(self):
         def changepic():
             play = True
-            new_Image = [ "Sred", "Dred", "Spurple", "Dpurple", "Syellow", "Dyellow", "Sblue", "Dblue", "Sorange", "Sorange", "Sgreen", "Dgreen"] #, "Candycane", "Gumdrop", "Icecream", "Lollipop", "Peanut" ]
+            new_Image = [ "Sred", "Dred", "Spurple", "Dpurple", "Syellow", "Dyellow", "Sblue", "Dblue", "Sorange", "Sorange", "Sgreen", "Dgreen", "Candycane", "Gumdrop", "Lollipop", "Peanut", "Berry", "Snowflake" ]
             color = new_Image[randint(0, len(new_Image) - 1)]
             img = PhotoImage(file = "{}.gif".format(color))
             L4.configure(image = img)
@@ -261,6 +261,18 @@ class Game(Frame):
                 colorClick = "orange"
             if (color == "Sgreen" or color == "Dgreen"):
                 colorClick = "green"
+            if (color == "Berry"):
+                colorClick = "berry"
+            if (color == "Candycane"):
+                colorClick = "candycane"
+            if (color == "Gumdrop"):
+                colorClick = "gumdrop"
+            if (color == "Peanut"):
+                colorClick = "peanut"
+            if (color == "Lollipop"):
+                colorClick = "lollipop"
+            if (color == "Snowflake"):
+                colorClick = "snowflake"
             
             # set all turns to 0 at beginning of game
             p1turn = 0
@@ -279,7 +291,49 @@ class Game(Frame):
                 for placement in Game.BoardListPlacement:
                     if (placement - 1 == Game.player1.placement):
 #                        Game.work = int('P' + str(int(placement)))
-                        if (colorClick == Game.BoardListColor[placement - 1]):
+                        if (colorClick == "berry"):
+                            Game.player1.placement = 9
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ". Player 1 turn over")
+                            Game.text.config(state = DISABLED)
+                            break
+                        elif (colorClick == "candycane"):
+                            Game.player1.placement = 18
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ". Player 1 turn over")
+                            Game.text.config(state = DISABLED)
+                            break
+                        elif (colorClick == "gumdrop"):
+                            Game.player1.placement = 43
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ". Player 1 turn over")
+                            Game.text.config(state = DISABLED)
+                            break
+                        elif (colorClick == "peanut"):
+                            Game.player1.placement = 75
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ". Player 1 turn over")
+                            Game.text.config(state = DISABLED)
+                            break
+                        elif (colorClick == "lollipop"):
+                            Game.player1.placement = 96
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ". Player 1 turn over")
+                            Game.text.config(state = DISABLED)
+                            break
+                        elif (colorClick == "snowflake"):
+                            Game.player1.placement = 104
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ". Player 1 turn over")
+                            Game.text.config(state = DISABLED)
+                            break
+                        elif (colorClick == Game.BoardListColor[placement - 1]):
                             Game.player1.placement += 1
                             Game.text.config(state = NORMAL)
                             Game.text.delete("1.0", END)
