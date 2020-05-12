@@ -1,16 +1,19 @@
+#####################################################################################################################################################
+# Name: Kaylee Bourgeois & Nikolas Morgan
+# Date: 5/11/2020
+# Description: The board game Candy Land but Tech themed and converted to electronic game play.
+#####################################################################################################################################################
 from Tkinter import *
 from random import randint
 from GetNames import *
 
+# set some beginning values/variables
 play = False
-
 p1turn = 0
 p2turn = 0
 p3turn = 0
 p4turn = 0
 
-# Things to do
-## black spots for skip player turn
 
 # Classes to create the board places
 class Board(object):
@@ -307,6 +310,7 @@ class Game(Frame):
             if (color == "Snowflake"):
                 colorClick = "snowflake"
 
+            # call the turn variables globally
             global p1turn
             global p2turn
             global p3turn
@@ -749,7 +753,7 @@ class Game(Frame):
             
         # set up the monopoly board image
         img = PhotoImage(file = "board.gif")
-        L1 = Label(self.master, image = img)
+        L1 = Label(self.master, image = img, bg = "white")
         L1.image = img
         L1.place( height = 700, width = 700, x = 0 , y = 0)
         L1.pack_propagate(False)
@@ -761,7 +765,7 @@ class Game(Frame):
 
         # set up dice roll number
         img = PhotoImage(file = "start.gif")
-        L4 = Label(self.master, image = img)
+        L4 = Label(self.master, image = img, bg = "white")
         L4.place( height = 700/4, width = 700/2 , x = 700, y = 50)
         L4.pack_propagate(False)
 
@@ -806,18 +810,10 @@ class Game(Frame):
         Game.text2.insert(END, list1)
         Game.text2.config(state = DISABLED)
 
-##    def playerStats(self):
-##        Game.text2.config(state = NORMAL)
-##        Game.text2.delete("1.0", END)
-##        Game.text2.insert(END, "Player)
-##        Game.text2.config(state = DISABLED)
-
                    
     def play(self):
         self.createPlayers()
         self.createBoard()
-##        self.playerStats()
-
 
 WIDTH = 1400
 HEIGHT = 700
@@ -826,7 +822,7 @@ HEIGHT = 700
 window = Tk()
 window.geometry("{}x{}".format(WIDTH, HEIGHT))
 window.configure(bg = "white")
-window.title("Monopoly Game")
+window.title("Techy Land")
 t = Game(window)
 ##t.turns()
 t.setupGUI()
