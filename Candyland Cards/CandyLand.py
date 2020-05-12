@@ -4,9 +4,12 @@ from GetNames import *
 
 play = False
 
+p1turn = 0
+p2turn = 0
+p3turn = 0
+p4turn = 0
+
 # Things to do
-## Turns with multiplayer
-## player info on the right
 ## black spots for skip player turn
 
 # Classes to create the board places
@@ -77,7 +80,7 @@ class Game(Frame):
     # create the board pieces
     # give them a color, placement, and special value
     def createBoard(self):
-        Game.P1 = Board("red", 1, None)
+        P1 = Board("red", 1, None)
         P2 = Board("purple", 2, None)
         P3 = Board("yellow", 3, None)
         P4 = Board("blue", 4, None)
@@ -218,7 +221,7 @@ class Game(Frame):
         P139 = Board("red", 139, None)
 
         # create a list of the every board piece's placement to use later in game play
-        Game.BoardListPlacement = [Game.P1.placement, P2.placement, P3.placement, P4.placement, P5.placement, P6.placement, P7.placement, P8.placement, P9.placement, \
+        Game.BoardListPlacement = [P1.placement, P2.placement, P3.placement, P4.placement, P5.placement, P6.placement, P7.placement, P8.placement, P9.placement, \
                               P10.placement, P11.placement, P12.placement, P13.placement, P14.placement, P15.placement, P16.placement, P17.placement, P18.placement, P19.placement, \
                               P20.placement, P21.placement, P22.placement, P23.placement, P24.placement, P25.placement, P26.placement, P27.placement, P28.placement, P29.placement, \
                               P30.placement, P31.placement, P32.placement, P33.placement, P34.placement, P35.placement, P36.placement, P37.placement, P38.placement, P39.placement, \
@@ -234,7 +237,7 @@ class Game(Frame):
                               P130.placement, P131.placement, P132.placement, P133.placement, P134.placement, P135.placement, P136.placement, P137.placement, P138.placement, P139.placement ]
 
         # create a list of every board piece's color to use later in game play
-        Game.BoardListColor = [Game.P1.color, P2.color, P3.color, P4.color, P5.color, P6.color, P7.color, P8.color, P9.color, \
+        Game.BoardListColor = [P1.color, P2.color, P3.color, P4.color, P5.color, P6.color, P7.color, P8.color, P9.color, \
                               P10.color, P11.color, P12.color, P13.color, P14.color, P15.color, P16.color, P17.color, P18.color, P19.color, \
                               P20.color, P21.color, P22.color, P23.color, P24.color, P25.color, P26.color, P27.color, P28.color, P29.color, \
                               P30.color, P31.color, P32.color, P33.color, P34.color, P35.color, P36.color, P37.color, P38.color, P39.color, \
@@ -247,7 +250,8 @@ class Game(Frame):
                               P100.color, P101.color, P102.color, P103.color, P104.color, P105.color, P106.color, P107.color, P108.color, P109.color, \
                               P110.color, P111.color, P112.color, P113.color, P114.color, P115.color, P116.color, P117.color, P118.color, P119.color, \
                               P120.color, P121.color, P122.color, P123.color, P124.color, P125.color, P126.color, P127.color, P128.color, P129.color, \
-                              P130.color, P131.color, P132.color, P133.color, P134.color, P135.color, P136.color, P137.color, P138.color, P139.color ]        
+                              P130.color, P131.color, P132.color, P133.color, P134.color, P135.color, P136.color, P137.color, P138.color, P139.color ]
+
 
     def setupGUI(self):
         def changepic():
@@ -302,21 +306,14 @@ class Game(Frame):
             # set caps Snowflake to snowflake colorClick
             if (color == "Snowflake"):
                 colorClick = "snowflake"
-            
-            # set all turns to 0 at beginning of game
-            p1turn = 0
-            p2turn = 0
-            p3turn = 0
-            p4turn = 0
-            # while they are all equal (the beginning of a round), it is player 1's turn
-            while (p1turn == p2turn) and (p1turn == p3turn) and  (p1turn == p4turn) and (play == True): # and (playerl.placement < 82) and (player2.placement < 82) and (p3.placement < 82) and (p4.placement < 82)
-##              # for now print the statements
-##              # later, delete this and create a process for it to run
-##                Game.text.config(state = NORMAL)
-##                Game.text.delete("1.0", END)
-##                Game.text.insert(END, "Goodjob")
-##                Game.text.config(state = DISABLED)
 
+            global p1turn
+            global p2turn
+            global p3turn
+            global p4turn
+            
+            # while they are all equal (the beginning of a round), it is player 1's turn
+            while (p1turn == p2turn) and (p1turn == p3turn) and  (p1turn == p4turn) and (play == True):
                 # increment the placement until it reaches the desires board space
                 for placement in Game.BoardListPlacement:
                     # if the placement of the player and the board match, cont.
@@ -327,7 +324,7 @@ class Game(Frame):
                             Game.player1.placement = 9
                             Game.text.config(state = NORMAL)
                             Game.text.delete("1.0", END)
-                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".Player 1's turn over.")
+                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\n\nPlayer 1's turn over.")
                             Game.text.config(state = DISABLED)
                             break
                         # if on candycane, move to place 18
@@ -336,7 +333,7 @@ class Game(Frame):
                             Game.player1.placement = 18
                             Game.text.config(state = NORMAL)
                             Game.text.delete("1.0", END)
-                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\nPlayer 1's turn over.")
+                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\n\nPlayer 1's turn over.")
                             Game.text.config(state = DISABLED)
                             break
                         # if on gumdrop, move to place 43
@@ -345,7 +342,7 @@ class Game(Frame):
                             Game.player1.placement = 43
                             Game.text.config(state = NORMAL)
                             Game.text.delete("1.0", END)
-                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\nPlayer 1's turn over.")
+                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\n\nPlayer 1's turn over.")
                             Game.text.config(state = DISABLED)
                             break
                         # if on peanut, move to place 75
@@ -354,7 +351,7 @@ class Game(Frame):
                             Game.player1.placement = 75
                             Game.text.config(state = NORMAL)
                             Game.text.delete("1.0", END)
-                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\nPlayer 1's turn over.")
+                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\n\nPlayer 1's turn over.")
                             Game.text.config(state = DISABLED)
                             break
                         # if on lollipop, move to place 96
@@ -363,7 +360,7 @@ class Game(Frame):
                             Game.player1.placement = 96
                             Game.text.config(state = NORMAL)
                             Game.text.delete("1.0", END)
-                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\nPlayer 1's turn over.")
+                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\n\nPlayer 1's turn over.")
                             Game.text.config(state = DISABLED)
                             break
                         # if on snowflake, move to place 104
@@ -372,7 +369,7 @@ class Game(Frame):
                             Game.player1.placement = 104
                             Game.text.config(state = NORMAL)
                             Game.text.delete("1.0", END)
-                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\nPlayer 1's turn over.")
+                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\n\nPlayer 1's turn over.")
                             Game.text.config(state = DISABLED)
                             break
                         # if color of card is the same as the place, cont.
@@ -381,7 +378,7 @@ class Game(Frame):
                             Game.player1.placement += 1
                             Game.text.config(state = NORMAL)
                             Game.text.delete("1.0", END)
-                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\nPlayer 1's turn over.")
+                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\n\nPlayer 1's turn over.")
                             Game.text.config(state = DISABLED)
                             # if a color is double, cont.
                             if ((color == "Dred") or (color == "Dpurple") or (color == "Dyellow") or (color == "Dgreen") or (color == "Dblue") or (color == "Dorange")):
@@ -394,7 +391,7 @@ class Game(Frame):
                                             Game.player1.placement += 1
                                             Game.text.config(state = NORMAL)
                                             Game.text.delete("1.0", END)
-                                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\nPlayer 1's turn over.")
+                                            Game.text.insert(END, "Player 1's placement is " + str(Game.player1.placement) + ".\n\nPlayer 1's turn over.")
                                             Game.text.config(state = DISABLED)
                                             # break out of both for loops
                                             break
@@ -420,64 +417,335 @@ class Game(Frame):
                 play = False
                 p1turn += 1
             
-##            # while p2 is less than p1 and p2 is equal to p3 and p4, it is player 2's turn
-##            while ( p1turn > p2turn and p2turn == p3turn and p2turn == p4turn and (play == True)): # and (pl.placement < 82) and (p2.placement < 82) and (p3.placement < 82) and (p4.placement < 82)
-##                # for now print the statements
-##                # later, delete this and create a process for it to run
-##                Game.text.config(state = NORMAL)
-##                Game.text.delete("1.0", END)
-##                Game.text.insert(END, "heck yeah")
-##                Game.text.config(state = DISABLED)
-##                # once the player reaches placement of 133, they win the game
-##                if (Game.player2.placement >= 133):
-##                    Game.text.config(state = NORMAL)
-##                    Game.text.delete("1.0", END)
-##                    Game.text.insert(END, "Congrats player 2! \nYou have won the game! \nPlease exit the window and play again.")
-##                    Game.text.config(state = DISABLED)
-##                    break
-##                # add one because they completed their turn
-##                play = False
-##                p2turn +=1
-##                
-##            # while p3 is less than p1 and p2 and p3 is equal to p4, it is player 3's turn
-##            while ( p1turn > p3turn and p2turn > p3turn and p3turn == p4turn and (play == True)): # and (pl.placement < 82) and (p2.placement < 82) and (p3.placement < 82) and (p4.placement < 82)
-##                # for now print the statements
-##                # later, delete this and create a process for it to run
-##                Game.text.config(state = NORMAL)
-##                Game.text.delete("1.0", END)
-##                Game.text.insert(END, "Tech yeah")
-##                Game.text.config(state = DISABLED)
-##                # once the player reaches placement of 133, they win the game
-##                if (Game.player3.placement > 133):
-##                    Game.text.config(state = NORMAL)
-##                    Game.text.delete("1.0", END)
-##                    Game.text.insert(END, "Congrats player 3! \nYou have won the game! \nPlease exit the window and play again.")
-##                    Game.text.config(state = DISABLED)
-##                    break
-##                # add one because they completed their turn
-##                play = False
-##                p3turn +=1
-##                    
-##            #while p1 and p2 and p3 are all greater than p4 (final turn of the round), it is player 4's turn
-##            # for now, p1 != 3 is set because we do not have positions set for players, this stops the endless loop
-##            while (p1turn > p4turn and p2turn > p4turn and p3turn > p4turn) and (p1turn != 3) and (play == True): # and (pl.placement < 82) and (p2.placement < 82) and (p3.placement < 82) and (p4.placement < 82)
-##                # for now print the statements
-##                # later, delete this and create a process for it to run
-##                Game.text.config(state = NORMAL)
-##                Game.text.delete("1.0", END)
-##                Game.text.insert(END, "You did it")
-##                Game.text.config(state = DISABLED)
-##                # once the player reaches placement of 133, they win the game
-##                if (Game.player4.placement > 133):
-##                    Game.text.config(state = NORMAL)
-##                    Game.text.delete("1.0", END)
-##                    Game.text.insert(END, "Congrats player 4! \nYou have won the game! \nPlease exit the window and play again.")
-##                    Game.text.config(state = DISABLED)
-##                    break
-##                # add one because they completed their turn
-##                play = False
-##                p4turn +=1
-            
+            # while p2 is less than p1 and p2 is equal to p3 and p4, it is player 2's turn
+            while ( p1turn > p2turn and p2turn == p3turn and p2turn == p4turn and (play == True)):
+                # increment the placement until it reaches the desires board space
+                for placement in Game.BoardListPlacement:
+                    # if the placement of the player and the board match, cont.
+                    if (placement - 1 == Game.player2.placement):
+                        # if on the berry, move to place 9
+                        # print placement
+                        if (colorClick == "berry"):
+                            Game.player2.placement = 9
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 2's placement is " + str(Game.player2.placement) + ".\n\nPlayer 2's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on candycane, move to place 18
+                        # print placement
+                        elif (colorClick == "candycane"):
+                            Game.player2.placement = 18
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 2's placement is " + str(Game.player2.placement) + ".\n\nPlayer 2's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on gumdrop, move to place 43
+                        # print placement
+                        elif (colorClick == "gumdrop"):
+                            Game.player2.placement = 43
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 2's placement is " + str(Game.player2.placement) + ".\n\nPlayer 2's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on peanut, move to place 75
+                        # print placement
+                        elif (colorClick == "peanut"):
+                            Game.player2.placement = 75
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 2's placement is " + str(Game.player2.placement) + ".\n\nPlayer 2's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on lollipop, move to place 96
+                        # print placement
+                        elif (colorClick == "lollipop"):
+                            Game.player2.placement = 96
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 2's placement is " + str(Game.player2.placement) + ".\n\nPlayer 2's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on snowflake, move to place 104
+                        # print placement
+                        elif (colorClick == "snowflake"):
+                            Game.player2.placement = 104
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 2's placement is " + str(Game.player2.placement) + ".\n\nPlayer 2's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if color of card is the same as the place, cont.
+                        # print placement
+                        elif (colorClick == Game.BoardListColor[placement - 1]):
+                            Game.player2.placement += 1
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 2's placement is " + str(Game.player2.placement) + ".\n\nPlayer 2's turn over.")
+                            Game.text.config(state = DISABLED)
+                            # if a color is double, cont.
+                            if ((color == "Dred") or (color == "Dpurple") or (color == "Dyellow") or (color == "Dgreen") or (color == "Dblue") or (color == "Dorange")):
+                                # move to the next space so you are not still on the same color
+                                Game.player2.placement += 1
+                                # run the same loop as before to move to the next occurance of that color
+                                for placement in Game.BoardListPlacement:
+                                    if (placement - 1 == Game.player2.placement):
+                                        if (colorClick == Game.BoardListColor[placement - 1]):
+                                            Game.player2.placement += 1
+                                            Game.text.config(state = NORMAL)
+                                            Game.text.delete("1.0", END)
+                                            Game.text.insert(END, "Player 2's placement is " + str(Game.player2.placement) + ".\n\nPlayer 2's turn over.")
+                                            Game.text.config(state = DISABLED)
+                                            # break out of both for loops
+                                            break
+                                            break
+                                        # if the colors do not match, move to the next space
+                                        else:
+                                            Game.player2.placement +=1
+                            # break from the for loop
+                            break
+                        # if the colors do not match, move to the next space
+                        else:
+                            Game.player2.placement +=1
+                            
+                # once the player reaches placement of 133, they win the game
+                if (Game.player2.placement > 133):
+                    Game.text.config(state = NORMAL)
+                    Game.text.delete("1.0", END)
+                    Game.text.insert(END, "Congrats player 2! \nYou have won the game! \nPlease exit the window and play again.")
+                    Game.text.config(state = DISABLED)
+                    break
+
+                # add one because they completed their turn
+                play = False
+                p2turn +=1
+                
+            # while p3 is less than p1 and p2 and p3 is equal to p4, it is player 3's turn
+            while ( p1turn > p3turn and p2turn > p3turn and p3turn == p4turn and (play == True)): 
+                # increment the placement until it reaches the desires board space
+                for placement in Game.BoardListPlacement:
+                    # if the placement of the player and the board match, cont.
+                    if (placement - 1 == Game.player3.placement):
+                        # if on the berry, move to place 9
+                        # print placement
+                        if (colorClick == "berry"):
+                            Game.player3.placement = 9
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 3's placement is " + str(Game.player3.placement) + ".\n\nPlayer 3's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on candycane, move to place 18
+                        # print placement
+                        elif (colorClick == "candycane"):
+                            Game.player3.placement = 18
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 3's placement is " + str(Game.player3.placement) + ".\n\nPlayer 3's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on gumdrop, move to place 43
+                        # print placement
+                        elif (colorClick == "gumdrop"):
+                            Game.player3.placement = 43
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 3's placement is " + str(Game.player3.placement) + ".\n\nPlayer 3's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on peanut, move to place 75
+                        # print placement
+                        elif (colorClick == "peanut"):
+                            Game.player3.placement = 75
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 3's placement is " + str(Game.player3.placement) + ".\n\nPlayer 3's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on lollipop, move to place 96
+                        # print placement
+                        elif (colorClick == "lollipop"):
+                            Game.player3.placement = 96
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 3's placement is " + str(Game.player3.placement) + ".\n\nPlayer 3's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on snowflake, move to place 104
+                        # print placement
+                        elif (colorClick == "snowflake"):
+                            Game.player3.placement = 104
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 3's placement is " + str(Game.player3.placement) + ".\n\nPlayer 3's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if color of card is the same as the place, cont.
+                        # print placement
+                        elif (colorClick == Game.BoardListColor[placement - 1]):
+                            Game.player3.placement += 1
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 3's placement is " + str(Game.player3.placement) + ".\n\nPlayer 3's turn over.")
+                            Game.text.config(state = DISABLED)
+                            # if a color is double, cont.
+                            if ((color == "Dred") or (color == "Dpurple") or (color == "Dyellow") or (color == "Dgreen") or (color == "Dblue") or (color == "Dorange")):
+                                # move to the next space so you are not still on the same color
+                                Game.player3.placement += 1
+                                # run the same loop as before to move to the next occurance of that color
+                                for placement in Game.BoardListPlacement:
+                                    if (placement - 1 == Game.player3.placement):
+                                        if (colorClick == Game.BoardListColor[placement - 1]):
+                                            Game.player3.placement += 1
+                                            Game.text.config(state = NORMAL)
+                                            Game.text.delete("1.0", END)
+                                            Game.text.insert(END, "Player 3's placement is " + str(Game.player3.placement) + ".\n\nPlayer 3's turn over.")
+                                            Game.text.config(state = DISABLED)
+                                            # break out of both for loops
+                                            break
+                                            break
+                                        # if the colors do not match, move to the next space
+                                        else:
+                                            Game.player3.placement +=1
+                            # break from the for loop
+                            break
+                        # if the colors do not match, move to the next space
+                        else:
+                            Game.player3.placement +=1
+
+                # once the player reaches placement of 133, they win the game
+                if (Game.player3.placement > 133):
+                    Game.text.config(state = NORMAL)
+                    Game.text.delete("1.0", END)
+                    Game.text.insert(END, "Congrats player 3! \nYou have won the game! \nPlease exit the window and play again.")
+                    Game.text.config(state = DISABLED)
+                    break
+
+                # add one because they completed their turn
+                play = False
+                p3turn +=1
+                    
+            # while p1 and p2 and p3 are all greater than p4 (final turn of the round), it is player 4's turn
+            while (p1turn > p4turn and p2turn > p4turn and p3turn > p4turn) and (play == True): 
+                # increment the placement until it reaches the desires board space
+                for placement in Game.BoardListPlacement:
+                    # if the placement of the player and the board match, cont.
+                    if (placement - 1 == Game.player4.placement):
+                        # if on the berry, move to place 9
+                        # print placement
+                        if (colorClick == "berry"):
+                            Game.player4.placement = 9
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 4's placement is " + str(Game.player4.placement) + ".\n\nPlayer 4's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on candycane, move to place 18
+                        # print placement
+                        elif (colorClick == "candycane"):
+                            Game.player4.placement = 18
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 4's placement is " + str(Game.player4.placement) + ".\n\nPlayer 4's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on gumdrop, move to place 43
+                        # print placement
+                        elif (colorClick == "gumdrop"):
+                            Game.player4.placement = 43
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 4's placement is " + str(Game.player4.placement) + ".\n\nPlayer 4's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on peanut, move to place 75
+                        # print placement
+                        elif (colorClick == "peanut"):
+                            Game.player2.placement = 75
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 2's placement is " + str(Game.player2.placement) + ".\n\nPlayer 2's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on lollipop, move to place 96
+                        # print placement
+                        elif (colorClick == "lollipop"):
+                            Game.player2.placement = 96
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 2's placement is " + str(Game.player2.placement) + ".\n\nPlayer 2's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if on snowflake, move to place 104
+                        # print placement
+                        elif (colorClick == "snowflake"):
+                            Game.player4.placement = 104
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 4's placement is " + str(Game.player4.placement) + ".\n\nPlayer 4's turn over.")
+                            Game.text.config(state = DISABLED)
+                            break
+                        # if color of card is the same as the place, cont.
+                        # print placement
+                        elif (colorClick == Game.BoardListColor[placement - 1]):
+                            Game.player4.placement += 1
+                            Game.text.config(state = NORMAL)
+                            Game.text.delete("1.0", END)
+                            Game.text.insert(END, "Player 4's placement is " + str(Game.player4.placement) + ".\n\nPlayer 4's turn over.")
+                            Game.text.config(state = DISABLED)
+                            # if a color is double, cont.
+                            if ((color == "Dred") or (color == "Dpurple") or (color == "Dyellow") or (color == "Dgreen") or (color == "Dblue") or (color == "Dorange")):
+                                # move to the next space so you are not still on the same color
+                                Game.player4.placement += 1
+                                # run the same loop as before to move to the next occurance of that color
+                                for placement in Game.BoardListPlacement:
+                                    if (placement - 1 == Game.player4.placement):
+                                        if (colorClick == Game.BoardListColor[placement - 1]):
+                                            Game.player4.placement += 1
+                                            Game.text.config(state = NORMAL)
+                                            Game.text.delete("1.0", END)
+                                            Game.text.insert(END, "Player 4's placement is " + str(Game.player4.placement) + ".\n\nPlayer 4's turn over.")
+                                            Game.text.config(state = DISABLED)
+                                            # break out of both for loops
+                                            break
+                                            break
+                                        # if the colors do not match, move to the next space
+                                        else:
+                                            Game.player4.placement +=1
+                            # break from the for loop
+                            break
+                        # if the colors do not match, move to the next space
+                        else:
+                            Game.player4.placement +=1
+
+                # once the player reaches placement of 133, they win the game
+                if (Game.player4.placement > 133):
+                    Game.text.config(state = NORMAL)
+                    Game.text.delete("1.0", END)
+                    Game.text.insert(END, "Congrats player 4! \nYou have won the game! \nPlease exit the window and play again.")
+                    Game.text.config(state = DISABLED)
+                    break
+
+                # add one because they completed their turn
+                play = False
+                p4turn +=1
+
+            # update right text
+            list2 = ""
+            Game.text2.config(state = NORMAL)
+            Game.text2.delete("1.0", END)
+            list2 += ("Player 1 is " + Game.player1.name + "\n") + \
+                     ("Player 1's placement is " + str(Game.player1.placement)) + ("\n") + ("\n") +\
+                     ("Player 2 is " + Game.player2.name + "\n") + \
+                     ("Player 2's placement is " + str(Game.player2.placement)) + ("\n") + ("\n") +\
+                     ("Player 3 is " + Game.player3.name + "\n") + \
+                     ("Player 3's placement is " + str(Game.player3.placement)) + ("\n") + ("\n") +\
+                     ("Player 4 is " + Game.player4.name) + "\n" + \
+                     ("Player 4's placement is " + str(Game.player4.placement))
+            Game.text2.insert(END, list2)
+            Game.text2.config(state = DISABLED)
             
         # set up the monopoly board image
         img = PhotoImage(file = "board.gif")
@@ -515,12 +783,6 @@ class Game(Frame):
         L3 = Label(self.master, text = "Players' Info", bg = "firebrick3", borderwidth = 5)
         L3.place( height = 50, width = 700/2, x = 700 + 700/2, y = 525/2)
 
-        # set up player input box
-        Game.E1 = Entry(self.master, bg = "white")
-        Game.E1.bind("<Return>", self.createPlayers)
-        Game.E1.place( height = 20, width = 700, x = 700, y = 675)
-        Game.E1.focus()
-
 
     def createPlayers(self):
         list1 = ""
@@ -533,15 +795,28 @@ class Game(Frame):
         # update text on the right side to say players names
         Game.text2.config(state = NORMAL)
         Game.text2.delete("1.0", END)
-        list1 += ("Player 1 is " + Game.player1.name + "\n") + ("Player 2 is " + Game.player2.name + "\n") + \
-                 ("Player 3 is " + Game.player3.name + "\n") + ("Player 4 is " + Game.player4.name)
+        list1 += ("Player 1 is " + Game.player1.name + "\n") + \
+                 ("Player 1's placement is " + str(Game.player1.placement)) + ("\n") + ("\n") +\
+                 ("Player 2 is " + Game.player2.name + "\n") + \
+                 ("Player 2's placement is " + str(Game.player2.placement)) + ("\n") + ("\n") +\
+                 ("Player 3 is " + Game.player3.name + "\n") + \
+                 ("Player 3's placement is " + str(Game.player3.placement)) + ("\n") + ("\n") +\
+                 ("Player 4 is " + Game.player4.name) + "\n" + \
+                 ("Player 4's placement is " + str(Game.player4.placement))
         Game.text2.insert(END, list1)
         Game.text2.config(state = DISABLED)
+
+##    def playerStats(self):
+##        Game.text2.config(state = NORMAL)
+##        Game.text2.delete("1.0", END)
+##        Game.text2.insert(END, "Player)
+##        Game.text2.config(state = DISABLED)
 
                    
     def play(self):
         self.createPlayers()
         self.createBoard()
+##        self.playerStats()
 
 
 WIDTH = 1400
@@ -553,6 +828,7 @@ window.geometry("{}x{}".format(WIDTH, HEIGHT))
 window.configure(bg = "white")
 window.title("Monopoly Game")
 t = Game(window)
+##t.turns()
 t.setupGUI()
 t.play()
 
